@@ -1,0 +1,14 @@
+.products {
+  flex-basis: calc(100% - 220px);
+  flex-grow: 0;
+  flex-shrink: 0;
+  max-width: calc(100% - 220px);
+
+  grid-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  justify-items: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}

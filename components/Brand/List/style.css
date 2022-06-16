@@ -1,0 +1,19 @@
+.menuBrands {
+  flex-basis: 200px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  max-width: 200px;
+  padding-top: 1rem;
+}
+.sticky {
+  position: sticky;
+  top: 54px;
+}
+.menuItemBrand {
+  font-size: large;
+  word-wrap: unset;
+  cursor: pointer;
+}
+[data-active].menuItemBrand {
+  color: rgb(var(--bs-primary));
+}

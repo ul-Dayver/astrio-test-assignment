@@ -1,0 +1,15 @@
+<section :class="$style.card">
+  <header :class="$style.header">
+    <div :class="$style.image">
+      <img :src="product.image" :alt="product.title" />
+    </div>
+  </header>
+
+  <article :class="$style.body">
+    <p><span :class="$style.price" >{{formatPrice}}</span></p>
+    <h5 :class="$style.title">{{product.title}}<br><small>{{brandTitle}}</small></h5>
+
+    <button :class="$style.buyButton" @click="clickBuy">Buy</button>
+  </article>
+
+</section>
