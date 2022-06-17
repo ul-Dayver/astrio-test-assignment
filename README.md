@@ -1,2 +1,2 @@
 # astrio-test-assignment
-minisupermarket
+Результат выполнения [тестового задания Level 2](https://github.com/fe-side/vue-test) для фронтенд-разработчика [ASTRIO agency](https://astrio.ru/).
