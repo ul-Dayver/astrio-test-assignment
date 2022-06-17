@@ -10,9 +10,10 @@ function done(state) {
 }
 
 export const mutations = {
-  add(state, productId) {
-    const index = state.products.findIndex(({id}) => id === productId)
+  add(state, {productId, variantId}) {
+    const index = state.products.findIndex(({id, variant}) => id === productId && (variantId && variant === variantId || !variantId) )
     const product = {id: productId, qty: 1}
+    if (variantId) product.variant = variantId
     if (index >= 0) {
       product.qty += state.products[index].qty
       state.products.splice(index, 1, product)
@@ -21,8 +22,8 @@ export const mutations = {
     }
     done(state)
   },
-  remove(state, productId) {
-    const index = state.products.findIndex(({id}) => id === productId)
+  remove(state, {productId, variantId}) {
+    const index = state.products.findIndex(({id, variant}) => id === productId && (variantId && variant === variantId || !variantId) )
     if (index >= 0) {
       state.products.splice(index, 1)
       done(state)
@@ -32,11 +33,11 @@ export const mutations = {
     state.products = products
     state.counter = counter
   },
-  set(state, { id, qty }){
+  set(state, { productId, qty, variantId }){
     if (qty > 0) {
-      const index = state.products.findIndex((product) => product.id === id)
+      const index = state.products.findIndex((product) => product.id === productId && (variantId && variantId === product.variant || !variantId) )
       if (index >= 0) {
-        state.products.splice(index, 1, {id, qty})
+        state.products.splice(index, 1, {id: productId, qty, variant: variantId})
         done(state)
       }
     }

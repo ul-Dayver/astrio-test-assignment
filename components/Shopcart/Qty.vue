@@ -12,26 +12,37 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import type { Product } from "~/components/Product"
+
+type ProductCart = {
+  id: number, qty: number, variant: number
+}
 
 export default Vue.extend({
   name: "ShopcartQty",
   props: {
-    product_id: { type: Number, required: true }
+    product_id: { type: Number, required: true },
+    variant_id: { type: Number, required: false }
   },
   computed: {
     qty(): number {
-      const product = this.$store.state.cart.products.find((product: Product) => product.id === this.product_id)
+      
+      const product = this.$store.state.cart.products.find(
+        (product: ProductCart) => product.id === this.product_id && (product.variant === this.variant_id)
+      )
       return product ? product.qty : 0
     }
   },
   methods: {
     clickPlus() {
-      this.$store.commit("cart/add", this.product_id)
+      this.$store.commit("cart/add", {
+        productId: this.product_id,
+        variantId: this.variant_id
+      })
     },
     clickMinus(qty: number) {
       this.$store.commit("cart/set", {
-        id: this.product_id,
+        productId: this.product_id,
+        variantId: this.variant_id,
         qty: qty-1
       })
     }

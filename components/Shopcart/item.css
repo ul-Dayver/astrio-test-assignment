@@ -5,9 +5,13 @@
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  column-gap: 15px;
+  gap: 15px;
   padding: 1em;
   box-shadow: var(--product-card-shadow);
+  margin-top: 1rem;
+}
+.item:first-child{
+  margin-top: 0;
 }
 .item:hover {
   --product-card-shadow: var(--bs-box-shadow-hover);
@@ -46,6 +50,12 @@
 }
 .total {
   font-size: 1.1em;
+  margin-top: .5em;
+}
+.variant {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
   margin-top: .5em;
 }
 

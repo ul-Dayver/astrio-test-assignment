@@ -62,9 +62,15 @@
   color: rgb(var(--bs-white));
   padding: 5px;
 }
-
+.buyButtonWrapp {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 .buyButton {
-  background-color: rgb(var(--bs-primary));
+  --product-buybttn-bg: var(--bs-primary);
+  background-color: rgb(var(--product-buybttn-bg));
   color: rgb(var(--bs-white));
   font-size: large;
   cursor: pointer;
@@ -73,7 +79,10 @@
   padding: 7px 24px;
   margin-top: 1em;
 }
-
-.buyButton:hover {
-  background-color: rgb(var(--bs-primary-dark));
+[disabled].buyButton {
+  --product-buybttn-bg: var(--bs-gray-dark);
+  cursor: not-allowed;
+}
+.buyButton:hover:not([disabled]) {
+  --product-buybttn-bg: var(--bs-primary-dark);
 }

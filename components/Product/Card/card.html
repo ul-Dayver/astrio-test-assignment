@@ -1,15 +1,26 @@
 <section :class="$style.card">
   <header :class="$style.header">
     <div :class="$style.image">
-      <img :src="product.image" :alt="product.title" />
+      <img v-if="variant" :src="variant.product.image" :alt="product.title" />
+      <img v-else :src="product.image" :alt="product.title" />
     </div>
   </header>
 
   <article :class="$style.body">
     <p><span :class="$style.price" >{{formatPrice}}</span></p>
     <h5 :class="$style.title">{{product.title}}<br><small>{{brandTitle}}</small></h5>
-
-    <button :class="$style.buyButton" @click="clickBuy">Buy</button>
+    <div v-if="product.type === 'configurable'">
+      <ProductCardOption 
+        v-for="option in product.configurable_options"
+        :disabledAttributes="disabledAttributes"
+        :option="option"
+        :key="option.attribute_id"
+        @click="clickAttribute"
+      />
+    </div>
+    <div :class="$style.buyButtonWrapp">
+      <button :class="$style.buyButton" @click="clickBuy" :disabled="bttnBuyDisabled">Buy</button>
+    </div>
   </article>
 
 </section>

@@ -7,6 +7,12 @@
     <div :class="$style.details">
       <div :class="$style.title">{{product.title}}</div>
       <span>{{product.brand.title}}</span>
+      <div v-if="product.variant" :class="$style.variant">
+        <div v-for="option in product.variant" :key="option.code">
+          <b>{{option.label}}:</b>
+          <span>{{option.value.label}}</span>
+        </div>
+      </div>
       <div :class="$style.price">{{product.price}}</div>
     </div>
     <div>
@@ -16,7 +22,7 @@
         </button>
       </div>
       
-      <ShopcartQty :product_id="product.id" />
+      <ShopcartQty :product_id="product.id" :variant_id="variant"/>
       <div :class="$style.total"><small>total:</small> <b>{{product.total}}</b></div>
     </div>
   </article>
@@ -32,7 +38,8 @@ export default Vue.extend({
   name: 'ShopcartItem',
   props: {
     id: { type: Number, required: true },
-    qty: { type: Number, required: true }
+    qty: { type: Number, required: true },
+    variant: { type:Number, required: false }
   },
   computed: {
     product() {
@@ -44,9 +51,32 @@ export default Vue.extend({
 
       const { value, currency } = product.regular_price
       const total = value * this.qty
+      let variant = null
+      let image = product.image
+      if (this.variant && product.variants && product.configurable_options) {
+        const _variant = product.variants.find(variant => variant.product.id === this.variant)
+        if (_variant) {
+          image = _variant.product.image
+          variant = product.configurable_options.map(option => {
+            const attr = _variant.attributes.find(({code}) => code === option.attribute_code)
+            if (attr) {
+              const value = option.values.find(val => val.value_index === attr.value_index)
+              return {
+                code: option.attribute_code,
+                label: option.label,
+                value
+              }
+            }
+            return null
+          })
+        }
+        
+      }
 
       return {
         ...product,
+        image,
+        variant,
         price: formatPrice(product.regular_price),
         qty: this.qty,
         brand,
@@ -55,8 +85,12 @@ export default Vue.extend({
     }
   },
   methods: {
-    clickTrash(id: number) {
-      this.$store.commit("cart/remove", id)
+    clickTrash(productId: number) {
+      const variantId = this.variant || null
+      this.$store.commit("cart/remove", {
+        productId,
+        variantId
+      })
     }
   }
 })

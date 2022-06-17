@@ -49,7 +49,7 @@ export default Vue.extend({
 .grid {
   width: 100%;
   display: flex;
-  grid-gap: 15px;
+  gap: 15px;
   flex-direction: column;
   justify-content: center;
 }
