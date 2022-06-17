@@ -1,5 +1,11 @@
-<template src="./list.html"></template>
+<template>
+  <div :class="$style.products">
+    <ProductCard v-for="product in products" :key="product.id" :product="product" />
+  </div>
+</template>
+
 <style lang="css" src="./list.css" module></style>
+
 <script lang="ts">
 import Vue from 'vue'
 import type { Brand } from "~/components/Brand"

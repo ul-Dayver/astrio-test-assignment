@@ -15,6 +15,7 @@ export default Vue.extend({
   methods: {
     selectItem() {
       this.$store.commit("showcase/setActiveBrand", this.brand.id)
+      this.$emit('click');
     }
   }
 })

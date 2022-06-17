@@ -15,9 +15,15 @@ export default Vue.extend({
 <style lang="css" module>
 .grid {
   width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
+  flex-direction: column;
+}
+@media (min-width: 667px) {
+  .grid {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 </style>

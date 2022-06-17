@@ -5,6 +5,7 @@ import type { PropType } from 'vue'
 import type { Product } from ".."
 import type { Brand } from "~/components/Brand"
 import Vue from 'vue'
+import formatPrice from "~/utils/formatPrice"
 
 export default Vue.extend({
   name: 'ProductCard',
@@ -17,13 +18,7 @@ export default Vue.extend({
       return brand ? brand.title : ""
     },
     formatPrice: function() :string {
-      const { currency, value } = this.product.regular_price
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(value)
+      return formatPrice(this.product.regular_price)
     }
   },
   methods: {

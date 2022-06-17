@@ -1,12 +1,9 @@
 <template>
   <client-only>
-    <a
-      :href="'#'"
-      :class="$style.button"
-    >
+    <NuxtLink to="/shopcart" :class="$style.button">
       <img src="/images/cart.png" />
       <span :class="$style.counter">{{productsQty}}</span>
-    </a>
+    </NuxtLink>
   </client-only>
 </template>
 <script lang="ts">
