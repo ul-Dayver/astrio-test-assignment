@@ -1,6 +1,6 @@
 <template>
   <section :class="$style.shopcart">
-    <ShopcartItem v-for="product in products" :key="product.variant || product.id" :id="product.id" :qty="product.qty" :variant="product.variant" />
+    <ShopcartItem v-for="product in products" :key="product.variant || product.id" :productId="product.productId" :qty="product.qty" :variantId="product.variantId" />
   </section>
 </template>
 

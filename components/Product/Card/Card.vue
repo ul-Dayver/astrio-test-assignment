@@ -59,6 +59,19 @@ export default Vue.extend({
       
       if (variant) {
         this.variant = variant
+        this.disabledAttributes = this.disabledAttributes.map((option) => {
+          const values = option.values.filter(value => {
+            const attributes = this.attributes.map(({code, value_index}) => ({
+              code, value_index: code === option.attribute_code ? value.value_index : value_index
+            }))
+
+            return !this.product.variants || !this.product.variants.find(variant => variant.attributes.every(attr => 
+              attributes.find(({code, value_index }) => 
+                code === attr.code && value_index === attr.value_index)
+            ))
+          })
+          return {...option, values}  
+        })
         return;
       } else {
         this.variant = undefined

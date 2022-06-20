@@ -47,6 +47,7 @@ export default Vue.extend({
   text-align: center;
   position: relative;
   border: 3px solid rgb(var(--product-card-optionvalue-border-color));
+  border-radius: var(--bs-border-radius-1);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -75,13 +76,15 @@ export default Vue.extend({
   transform: rotate(-24deg) translate(1px, 6px);
 }
 [data-active].option:not([data-disabled]) {
-  --product-card-optionvalue-border-color: var(--bs-secondary)
+  --product-card-optionvalue-border-color: var(--bs-primary)
 }
 .option .color {
   position: absolute;
   width: 100%;
   top: 0;
   bottom: 0;
+  z-index: 0;
+  border-radius: .3em;
 }
 .option .size {
   line-height: 1;

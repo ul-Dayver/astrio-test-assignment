@@ -12,10 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
-type ProductCart = {
-  id: number, qty: number, variant: number
-}
+import type { TCartProduct } from "~/store/cart"
 
 export default Vue.extend({
   name: "ShopcartQty",
@@ -27,7 +24,7 @@ export default Vue.extend({
     qty(): number {
       
       const product = this.$store.state.cart.products.find(
-        (product: ProductCart) => product.id === this.product_id && (product.variant === this.variant_id)
+        ({productId, variantId}: TCartProduct) => productId === this.product_id && (variantId === this.variant_id)
       )
       return product ? product.qty : 0
     }

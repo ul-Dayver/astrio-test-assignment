@@ -19,17 +19,19 @@
 import Vue from 'vue'
 import formatPrice from "~/utils/formatPrice"
 import type { Product } from "~/components/Product"
+import type { IShowcase } from "~/store/showcase"
+import type { TCartProduct } from "~/store/cart"
 
 export default Vue.extend({
   name: 'ShopcartPage',
   computed: {
     total(): string {
-      const { products } = this.$store.state.showcase
+      const { products } = this.$store.state.showcase as IShowcase
       const { currency } = (products[0] as Product).regular_price
-      const amount = this.$store.state.cart.products.reduce((acc: number, productCart: { id: number, qty: number }) => {
-        const product = (products as Product[]).find(({id}) => productCart.id === id)
+      const amount = this.$store.state.cart.products.reduce((acc: number, {productId, qty}: TCartProduct) => {
+        const product = (products as Product[]).find(({id}) => productId === id)
         if (!product) return acc
-        return acc + product.regular_price.value * productCart.qty
+        return acc + product.regular_price.value * qty
       }, 0)
       
       return formatPrice({currency, value: amount})

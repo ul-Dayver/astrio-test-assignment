@@ -22,7 +22,7 @@
         </button>
       </div>
       
-      <ShopcartQty :product_id="product.id" :variant_id="variant"/>
+      <ShopcartQty :product_id="productId" :variant_id="variantId"/>
       <div :class="$style.total"><small>total:</small> <b>{{product.total}}</b></div>
     </div>
   </article>
@@ -37,14 +37,14 @@ import formatPrice from "~/utils/formatPrice"
 export default Vue.extend({
   name: 'ShopcartItem',
   props: {
-    id: { type: Number, required: true },
+    productId: { type: Number, required: true },
     qty: { type: Number, required: true },
-    variant: { type:Number, required: false }
+    variantId: { type:Number, required: false }
   },
   computed: {
     product() {
       const { products, brands } = this.$store.state.showcase
-      const product: Product = products.find((product: Product) => product.id === this.id)
+      const product: Product = products.find((product: Product) => product.id === this.productId)
       if (!product) return null
       const brand = brands.find((brand: Brand) => brand.id === product.id)
       if (!brand) return null
@@ -53,8 +53,8 @@ export default Vue.extend({
       const total = value * this.qty
       let variant = null
       let image = product.image
-      if (this.variant && product.variants && product.configurable_options) {
-        const _variant = product.variants.find(variant => variant.product.id === this.variant)
+      if (this.variantId && product.variants && product.configurable_options) {
+        const _variant = product.variants.find(variant => variant.product.id === this.variantId)
         if (_variant) {
           image = _variant.product.image
           variant = product.configurable_options.map(option => {
@@ -86,10 +86,9 @@ export default Vue.extend({
   },
   methods: {
     clickTrash(productId: number) {
-      const variantId = this.variant || null
       this.$store.commit("cart/remove", {
         productId,
-        variantId
+        variantId: this.variantId || null
       })
     }
   }

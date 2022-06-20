@@ -1,18 +1,28 @@
-export const state = () => ({
+import { Store } from "vuex/types"
+import { Brand } from "~/components/Brand"
+import { Product } from "~/components/Product"
+
+export interface IShowcase {
+  products: Product[],
+  brands: Brand[]
+}
+
+export const state = (): IShowcase => ({
   products: [],
   brands: []
 })
+
 export const mutations = {
-  update(state, payload) {
+  update(state: IShowcase, payload: IShowcase) {
     state.products = payload.products
     state.brands = payload.brands.map(brand => ({...brand, active: false}))
   },
-  setActiveBrand(state, brandId) {
+  setActiveBrand(state: IShowcase, brandId: number) {
     state.brands = state.brands.map((brand) => ({...brand, active: brand.id === brandId}))
   }
 }
 export const actions = {
-  async load({ commit }) {
+  async load({ commit }: Store<any>) {
     const data = process.server ? getData() : await fetchData()
     commit("update", data)
   }
