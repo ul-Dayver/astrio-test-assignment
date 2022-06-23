@@ -17,7 +17,7 @@
     </div>
     <div>
       <div style="text-align: right;">
-        <button type="button" :class="$style.trashBttn" @click="clickTrash(id)" title="Remove goods">
+        <button type="button" :class="$style.trashBttn" @click="clickTrash(productId)" title="Remove goods">
           <img src="/images/trash.png">
         </button>
       </div>

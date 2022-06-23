@@ -18,7 +18,7 @@ function done(state: ICart) {
 }
 
 function findIndexProduct(state: ICart, {productId, variantId}: Omit<TCartProduct, "qty">) {
-  return state.products.findIndex((product) => product.productId === productId && (variantId && product.productId === variantId || !variantId) )
+  return state.products.findIndex((product) => product.productId === productId && (variantId && product.variantId === variantId || !variantId) )
 }
 
 export const mutations = {
@@ -36,6 +36,7 @@ export const mutations = {
   },
   remove(state: ICart, {productId, variantId}: Omit<TCartProduct, "qty">) {
     const index = findIndexProduct(state, {productId, variantId})
+    console.log(index)
     if (index >= 0) {
       state.products.splice(index, 1)
       done(state)
